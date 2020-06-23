@@ -25,7 +25,7 @@ const NewViewerScreen = () => {
     try {
       addLinkingListener();
       await WebBrowser.openBrowserAsync(
-        `https://id.twitch.tv/oauth2/authorize?client_id=rggrr0wfq2zb6m42yvki7hzi71x7jn&redirect_uri=exp://25.22.61.204:19000&response_type=code&scope=user_follows_edit`
+        `https://id.twitch.tv/oauth2/authorize?client_id=rggrr0wfq2zb6m42yvki7hzi71x7jn&redirect_uri=exp://25.22.61.204:19000&response_type=code&scope=user_follows_edit&force_verify=true`
       );
     
     } catch (error) {

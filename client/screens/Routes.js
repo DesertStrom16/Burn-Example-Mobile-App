@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ActivityIndicator } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createDrawerNavigator } from "@react-navigation/drawer";
@@ -16,6 +16,7 @@ import BrowseScreen from "../screens/viewer/BrowseScreen";
 import GameDetailScreen from "../screens/viewer/GameDetailScreen";
 import NewUploadScreen from "../screens/streamer/NewUploadScreen";
 import ActiveUploadScreen from "../screens/streamer/ActiveUploadScreen";
+import UserProfile from "../screens/UserProfile";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -73,6 +74,7 @@ const DrawerStack = () => {
 
 // Viewer Stack
 const ViewerStack = ({ navigation }) => {
+  const reduxDisplayName = useSelector((state) => state.users.display_name);
   return (
     <Stack.Navigator
       screenOptions={{
@@ -103,6 +105,7 @@ const ViewerStack = ({ navigation }) => {
               name="md-person"
               size={32}
               color="white"
+              onPress={() => navigation.navigate("ViewerProfile")}
               style={{ marginRight: 10 }}
             />
           ),
@@ -113,6 +116,17 @@ const ViewerStack = ({ navigation }) => {
         component={GameDetailScreen}
         options={({ route }) => ({
           title: route.params.title,
+          headerTitleStyle: {
+            fontSize: 18,
+            color: "white",
+          },
+        })}
+      />
+      <Stack.Screen
+        name="ViewerProfile"
+        component={UserProfile}
+        options={() => ({
+          title: reduxDisplayName,
           headerTitleStyle: {
             fontSize: 18,
             color: "white",
@@ -141,6 +155,7 @@ const StreamerTabNav = () => {
   );
 };
 const StreamerStack = ({ navigation }) => {
+  const reduxDisplayName = useSelector((state) => state.users.display_name);
   return (
     <Stack.Navigator
       screenOptions={{
@@ -171,10 +186,22 @@ const StreamerStack = ({ navigation }) => {
               name="md-person"
               size={32}
               color="white"
+              onPress={() => navigation.navigate("StreamerProfile")}
               style={{ marginRight: 10 }}
             />
           ),
         }}
+      />
+      <Stack.Screen
+        name="StreamerProfile"
+        component={UserProfile}
+        options={() => ({
+          title: reduxDisplayName,
+          headerTitleStyle: {
+            fontSize: 18,
+            color: "white",
+          },
+        })}
       />
     </Stack.Navigator>
   );
@@ -186,8 +213,8 @@ const Routes = () => {
 
   if (isAppLoading) {
     return (
-      <View style={styles.loading}>
-        <Text>LOADING!!!</Text>
+      <View style={[styles.container, styles.horizontal]}>
+        <ActivityIndicator size="large" color="#0000ff" />
       </View>
     );
   }
@@ -204,10 +231,14 @@ const Routes = () => {
 };
 
 const styles = StyleSheet.create({
-  loading: {
+  container: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center",
+  },
+  horizontal: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    padding: 10,
   },
 });
 

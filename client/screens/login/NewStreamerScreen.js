@@ -2,8 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, ScrollView, Dimensions } from "react-native";
 
 
-// So this screen will eventually need to be worked on but right now it is just a slider example for the FAQ page whenever we build it. 
-// Feel free to comment it out but save it for later as a reference!
+// This screen will eventually be worked on but right now it is just a slider example for the FAQ page!
 const NewStreamerScreen = () => {
   return (
     <View style={styles.screen}>
