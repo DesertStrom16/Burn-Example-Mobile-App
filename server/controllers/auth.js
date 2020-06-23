@@ -1,13 +1,5 @@
-// CLIENT SECRET = jd97lkc9whxdicjg2xdpq2h3mn7ir2
-
 const axios = require("axios").default;
 const User = require("../models/user");
-
-exports.getAuth = (req, res, next) => {
-  res.status(200).json({
-    auth: [{ title: "First Call", content: "test" }],
-  });
-};
 
 exports.postAuth = async (req, res, next) => {
   res.set("Content-Type", "application/json");
